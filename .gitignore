@@ -6,3 +6,9 @@ crash.log
 
 # For built boxes
 *.box
+
+# Generated private keys
+*.pem
+
+# Generated manifest
+packer_manifest.json
