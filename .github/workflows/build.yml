@@ -7,8 +7,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+# env:
 #   HCP_ORGANIZATION_ID: ${{ secrets.HCP_ORGANIZATION_ID }}
 #   HCP_PROJECT_ID: ${{ secrets.HCP_PROJECT_ID }}
 #   HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
@@ -23,6 +22,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
       - name: Packer init
         run: packer init .
