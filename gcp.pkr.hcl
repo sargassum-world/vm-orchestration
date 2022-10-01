@@ -32,24 +32,25 @@ build {
     script = "./provisioners/system/upgrade.sh"
   }
 
-  # Podman provisioning
+  # Containerd provisioning
 
   provisioner "shell" {
-    script = "./provisioners/podman/install.sh"
+    scripts = [
+      "./provisioners/containerd/add-repository.sh",
+      "./provisioners/containerd/install.sh",
+    ]
   }
 
   # Hashistack provisioning
 
   provisioner "shell" {
-    scripts = [
-      "./provisioners/hashistack/install.sh",
-    ]
+    script = "./provisioners/hashistack/add-repository.sh"
   }
 
+  # Hashistack Nomad provisioning
+
   provisioner "shell" {
-    inline = [
-      "mkdir -p /tmp/packer-files/hashistack/nomad/",
-    ]
+    script = "./provisioners/hashistack/nomad/install.sh"
   }
 
   provisioner "file" {
@@ -72,12 +73,6 @@ build {
   }
 
   provisioner "shell" {
-    inline = [
-      "sudo mkdir -p /etc/nomad.d/",
-      "sudo cp /tmp/packer-files/hashistack/nomad/*.hcl /etc/nomad.d/",
-      "sudo chmod 644 /etc/nomad.d/*.hcl",
-      "sudo chown nomad:nomad /etc/nomad.d/*.hcl",
-      "sudo systemctl enable nomad.service",
-    ]
+    script = "./provisioners/hashistack/nomad/configure.sh"
   }
 }

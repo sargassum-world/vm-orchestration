@@ -2,3 +2,11 @@ client {
   enabled = true
   servers = ["127.0.0.1"]
 }
+
+plugin "containerd-driver" {
+  config {
+    enabled = true
+    containerd_runtime = "io.containerd.runc.v2"
+    privileged = false
+  }
+}
