@@ -77,6 +77,7 @@ build {
       "sudo cp /tmp/packer-files/hashistack/nomad/*.hcl /etc/nomad.d/",
       "sudo chmod 644 /etc/nomad.d/*.hcl",
       "sudo chown nomad:nomad /etc/nomad.d/*.hcl",
+      "sudo systemctl enable nomad.service",
     ]
   }
 }
