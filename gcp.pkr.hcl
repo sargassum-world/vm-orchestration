@@ -1,48 +1,80 @@
-source "googlecompute" "foundations-orchestrator" {
-  project_id = "sargassum-world"
+source "googlecompute" "ubuntu-minimal" {
   source_image_project_id = ["ubuntu-os-cloud"]
   source_image_family = "ubuntu-minimal-2204-lts"
-  zone = "us-west1-a"
 
-  service_account_email = "infra-packer@sargassum-world.iam.gserviceaccount.com"
-
-  image_name = "foundations-orchestrator-{{timestamp}}"
-  image_description = "Sargassum, Ubuntu, 22.04 LTS Minimal, amd64 jammy minimal image, supports Shielded VM features, with Docker and HashiStack"
-  image_family = "sargassum-orchestrator-2204"
-
-  disk_size = 10
   disk_type = "pd-standard"
   enable_vtpm = true
   enable_integrity_monitoring = true
 
   network = "default"
 
-  // Note: the GCP IAP API must be enabled; the gcloud sdk must be installed on the computer running
-  // Packer; and the account running Packer must have the "IAP-secured Tunnel User" role
-  /*omit_external_ip = true
-  use_internal_ip = true
-  subnetwork = "foundations-us-west1"
-  use_iap = true*/
-
   ssh_username = "packer"
 }
 
 build {
-  sources = ["sources.googlecompute.foundations-orchestrator"]
+  name = "sargassum-foundations-orchestrator"
+
+  source "googlecompute.ubuntu-minimal" {
+    project_id = var.gcp_project_id
+    zone = var.gcp_zone
+    service_account_email = var.gcp_service_account
+
+    image_name = "sargassum-foundations-orchestrator-{{timestamp}}"
+    image_description = "Sargassum, Ubuntu, 22.04 LTS Minimal, amd64 jammy minimal image, supports Shielded VM features, with Podman and HashiStack"
+    image_family = "sargassum-foundations-orchestrator"
+
+    disk_size = 10
+  }
+
+  # System provisioning
+
+  provisioner "shell" {
+    script = "./provisioners/system/upgrade.sh"
+  }
+
+  # Podman provisioning
+
+  provisioner "shell" {
+    script = "./provisioners/podman/install.sh"
+  }
+
+  # Hashistack provisioning
 
   provisioner "shell" {
     scripts = [
-      "./provisioners/scripts/upgrade.sh",
-      "./provisioners/scripts/install-podman.sh",
-      "./provisioners/scripts/install-hashistack.sh"
+      "./provisioners/hashistack/install.sh",
     ]
   }
 
-  post-processor "manifest" {
-    output      = "packer_manifest.json"
-    strip_path  = true
-    custom_data = {
-      iteration_id = packer.iterationID
-    }
+  provisioner "shell" {
+    inline = [
+      "mkdir -p /tmp/packer-files/hashistack/nomad/",
+    ]
+  }
+
+  provisioner "file" {
+    content = templatefile("./provisioners/hashistack/nomad/nomad.hcl.pkrtpl", {
+      datacenter = var.hashistack_datacenter
+    })
+    destination = "/tmp/packer-files/hashistack/nomad/nomad.hcl"
+  }
+
+  provisioner "file" {
+    content = templatefile("./provisioners/hashistack/nomad/server.hcl.pkrtpl", {
+      expected_cluster_size = var.hashistack_expected_cluster_size
+    })
+    destination = "/tmp/packer-files/hashistack/nomad/server.hcl"
+  }
+
+  provisioner "file" {
+    content = templatefile("./provisioners/hashistack/nomad/client.hcl.pkrtpl", {})
+    destination = "/tmp/packer-files/hashistack/nomad/client.hcl"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "sudo mkdir -p /etc/nomad.d/",
+      "sudo cp /tmp/packer-files/hashistack/nomad/* /etc/nomad.d/"
+    ]
   }
 }

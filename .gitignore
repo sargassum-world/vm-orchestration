@@ -9,6 +9,3 @@ crash.log
 
 # Generated private keys
 *.pem
-
-# Generated manifest
-packer_manifest.json
