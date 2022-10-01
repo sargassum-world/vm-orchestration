@@ -74,7 +74,9 @@ build {
   provisioner "shell" {
     inline = [
       "sudo mkdir -p /etc/nomad.d/",
-      "sudo cp /tmp/packer-files/hashistack/nomad/* /etc/nomad.d/"
+      "sudo cp /tmp/packer-files/hashistack/nomad/*.hcl /etc/nomad.d/",
+      "sudo chmod 644 /etc/nomad.d/*.hcl",
+      "sudo chown nomad:nomad /etc/nomad.d/*.hcl",
     ]
   }
 }
