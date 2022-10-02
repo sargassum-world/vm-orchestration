@@ -20,7 +20,7 @@ build {
     service_account_email = var.gcp_service_account
 
     image_name = "sargassum-foundations-orchestrator-{{timestamp}}"
-    image_description = "Sargassum, Ubuntu, 22.04 LTS Minimal, amd64 jammy minimal image, supports Shielded VM features, with Podman and HashiStack"
+    image_description = "Sargassum, Ubuntu, 22.04 LTS Minimal, amd64 jammy minimal image, supports Shielded VM features, with HashiStack"
     image_family = "sargassum-foundations-orchestrator"
 
     disk_size = 10
@@ -32,12 +32,12 @@ build {
     script = "./provisioners/system/upgrade.sh"
   }
 
-  # Containerd provisioning
+  # Docker provisioning
 
   provisioner "shell" {
     scripts = [
-      "./provisioners/containerd/add-repository.sh",
-      "./provisioners/containerd/install.sh",
+      "./provisioners/docker/add-repository.sh",
+      "./provisioners/docker/install.sh",
     ]
   }
 
