@@ -6,5 +6,5 @@ gcp_zone = "us-west1-a"
 
 # Hashistack provisioning
 
-hashistack_datacenter = "sargassum-foundations"
+hashistack_nomad_datacenter = "sargassum-foundations"
 hashistack_expected_cluster_size = 1

@@ -55,7 +55,7 @@ build {
 
   provisioner "file" {
     content = templatefile("./provisioners/hashistack/nomad/nomad.hcl.pkrtpl", {
-      datacenter = var.hashistack_datacenter
+      datacenter = var.hashistack_nomad_datacenter
     })
     destination = "/tmp/packer-files/hashistack/nomad/nomad.hcl"
   }
@@ -70,6 +70,11 @@ build {
   provisioner "file" {
     content = templatefile("./provisioners/hashistack/nomad/client.hcl.pkrtpl", {})
     destination = "/tmp/packer-files/hashistack/nomad/client.hcl"
+  }
+
+  provisioner "file" {
+    content = var.hashistack_nomad_bootstrap_token
+    destination = "/tmp/packer-files/hashistack/nomad/root.token"
   }
 
   provisioner "shell" {

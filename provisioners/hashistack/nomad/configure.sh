@@ -7,3 +7,6 @@ sudo chown nomad:nomad /etc/nomad.d/*.hcl
 
 # Set up systemd
 sudo systemctl enable nomad.service
+
+# Bootstrap ACLs
+nomad acl bootstrap /tmp/packer-files/hashistack/nomad/root.token >> /dev/null

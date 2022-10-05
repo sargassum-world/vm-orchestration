@@ -40,3 +40,4 @@ jobs:
           target: .
         env:
           PACKER_LOG: 1
+          PKR_VAR_hashistack_nomad_bootstrap_token: ${{ secrets.NOMAD_BOOTSTRAP_TOKEN }}

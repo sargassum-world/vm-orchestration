@@ -17,7 +17,7 @@ variable "gcp_zone" {
 
 # Hashistack provisioning
 
-variable "hashistack_datacenter" {
+variable "hashistack_nomad_datacenter" {
   type = string
   description = "Identifier for the datacenter in which the Hashistack agent runs"
 }
@@ -26,3 +26,10 @@ variable "hashistack_expected_cluster_size" {
   type = number
   description = "Number of expected servers in the cluster for bootstrapping"
 }
+
+variable "hashistack_nomad_bootstrap_token" {
+  type = string
+  description = "Secret ID for ACL bootstrap token"
+  sensitive = true
+}
+
