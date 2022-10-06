@@ -5,6 +5,6 @@ client {
 
 plugin "docker" {
   config {
-    allow_caps = ["net_admin"]
+    allow_caps = ["net_admin", "sys_admin"]
   }
 }
