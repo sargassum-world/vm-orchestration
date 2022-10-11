@@ -15,6 +15,16 @@ variable "gcp_zone" {
   description = "GCP build zone"
 }
 
+variable "gcp_network" {
+  type = string
+  description = "GCP network for the builder VM"
+}
+
+variable "gcp_subnetwork" {
+  type = string
+  description = "GCP subnetwork for the builder VM"
+}
+
 # Hashistack provisioning
 
 variable "hashistack_nomad_datacenter" {

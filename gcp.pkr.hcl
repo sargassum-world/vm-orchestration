@@ -1,3 +1,7 @@
+# Note: the Packer service account must be given the Compute Instance Admin role, so that it can
+# create and destroy Google Compute Engine resources (VMs, images, etc.). You can manually do this
+# from the IAM & Admin console. It must also be given the IAP-secured Tunnel User role, so that it
+# can ssh into the builder VM for provisioning.
 source "googlecompute" "ubuntu-minimal" {
   source_image_project_id = ["ubuntu-os-cloud"]
   source_image_family = "ubuntu-minimal-2204-lts"
@@ -6,9 +10,9 @@ source "googlecompute" "ubuntu-minimal" {
   enable_vtpm = true
   enable_integrity_monitoring = true
 
-  network = "default"
-
   ssh_username = "packer"
+  tags = ["iap-ssh"]
+  use_iap = true
 }
 
 build {
@@ -17,6 +21,8 @@ build {
   source "googlecompute.ubuntu-minimal" {
     project_id = var.gcp_project_id
     zone = var.gcp_zone
+    network = var.gcp_network
+    subnetwork = var.gcp_subnetwork
     service_account_email = var.gcp_service_account
 
     image_name = "sargassum-foundations-orchestrator-{{timestamp}}"

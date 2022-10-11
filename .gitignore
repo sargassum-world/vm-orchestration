@@ -9,3 +9,6 @@ crash.log
 
 # Generated private keys
 *.pem
+
+# Secret variables
+secrets.pkrvars.hcl
