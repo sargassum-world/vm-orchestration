@@ -33,6 +33,9 @@ jobs:
       - name: Test gcloud CLI
         run: gcloud info
 
+      - name: Locate gcloud CLI
+        run: which gcloud
+
       - name: Download Packer Plugins
         uses: hashicorp/packer-github-actions@master
         with:
