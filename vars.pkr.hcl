@@ -25,6 +25,18 @@ variable "gcp_subnetwork" {
   description = "GCP subnetwork for the builder VM"
 }
 
+# Disk mount provisioning
+
+variable "system_mounts_data_device" {
+  type = string
+  description = "Device path of data disk for persisting Docker volumes"
+}
+
+variable "system_mounts_data_mount" {
+  type = string
+  description = "Mount path of data disk for persisting Docker volumes"
+}
+
 # Hashistack provisioning
 
 variable "hashistack_nomad_datacenter" {

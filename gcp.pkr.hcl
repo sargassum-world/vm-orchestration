@@ -42,12 +42,18 @@ build {
   }
 
   provisioner "file" {
-    content = file("./provisioners/system/mounts/fstab")
+    content = templatefile("./provisioners/system/mounts/fstab.pkrtpl", {
+      data_device = var.system_mounts_data_device
+      data_mount = var.system_mounts_data_mount
+    })
     destination = "/tmp/packer-files/system/mounts/fstab"
   }
 
   provisioner "shell" {
     script = "./provisioners/system/mounts/configure.sh"
+    env = {
+      DATA_MOUNT = var.system_mounts_data_mount
+    }
   }
 
   # Docker provisioning
