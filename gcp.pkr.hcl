@@ -13,7 +13,6 @@ source "googlecompute" "ubuntu-minimal" {
   ssh_username = "packer"
   tags = ["iap-ssh"]
   use_iap = true
-  iap_hashbang = "/bin/bash"
 }
 
 build {
