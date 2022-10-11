@@ -27,6 +27,9 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+
       - name: Download Packer Plugins
         uses: hashicorp/packer-github-actions@master
         with:
