@@ -35,7 +35,15 @@ build {
   # System provisioning
 
   provisioner "shell" {
-    script = "./provisioners/system/upgrade.sh"
+    scripts = [
+      "./provisioners/system/upgrade.sh",
+      "./provisioners/system/mounts/configure.sh",
+    ]
+  }
+
+  provisioner "file" {
+    content = file("./provisioners/system/mounts/fstab")
+    destination = "/etc/fstab"
   }
 
   # Docker provisioning
