@@ -1,5 +1,7 @@
 #!/bin/bash -eux
 
+sudo cp /tmp/packer-files/system/mounts/fstab /etc/fstab
+
 sudo mkdir -p /mnt/disks/data
 
 # TODO: which of these do we need?
