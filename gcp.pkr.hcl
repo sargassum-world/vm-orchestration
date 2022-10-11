@@ -56,6 +56,7 @@ build {
     scripts = [
       "./provisioners/docker/add-repository.sh",
       "./provisioners/docker/install.sh",
+      "./provisioners/docker/configure.sh",
     ]
   }
 
