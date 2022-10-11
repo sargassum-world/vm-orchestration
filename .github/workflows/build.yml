@@ -30,6 +30,9 @@ jobs:
       - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
 
+      - name: Test gcloud CLI
+        run: gcloud info
+
       - name: Download Packer Plugins
         uses: hashicorp/packer-github-actions@master
         with:
