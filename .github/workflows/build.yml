@@ -34,7 +34,7 @@ jobs:
         run: gcloud info
 
       - name: Locate gcloud CLI
-        run: echo $GITHUB_PATH
+        run: cat $GITHUB_PATH
 
       - name: Download Packer Plugins
         uses: hashicorp/packer-github-actions@master
@@ -49,5 +49,5 @@ jobs:
           target: .
         env:
           PACKER_LOG: 1
-          PATH: ${{ github.path }} # needed for Packer to find the gcloud CLI for IAP tunneling
+          PATH: $(cat $GITHUB_PATH) # needed for Packer to find the gcloud CLI for IAP tunneling
           PKR_VAR_hashistack_nomad_bootstrap_token: ${{ secrets.NOMAD_BOOTSTRAP_TOKEN }}
