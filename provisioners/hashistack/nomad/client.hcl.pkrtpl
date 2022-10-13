@@ -1,6 +1,14 @@
 client {
   enabled = true
   servers = ["127.0.0.1"]
+
+  host_network "public" {
+    interface = "ens4" # specific to GCP
+  }
+
+  host_network "ztoverlay" {
+    interface = "${zerotier_interface}"
+  }
 }
 
 plugin "docker" {

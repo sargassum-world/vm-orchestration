@@ -15,3 +15,4 @@ system_mounts_data_mount = "/mnt/disks/data"
 
 hashistack_nomad_datacenter = "sargassum-foundations"
 hashistack_expected_cluster_size = 1
+hashistack_nomad_ztoverlay_interface = "ztksewamoq"

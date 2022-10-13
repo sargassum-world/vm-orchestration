@@ -93,7 +93,9 @@ build {
   }
 
   provisioner "file" {
-    content = templatefile("./provisioners/hashistack/nomad/client.hcl.pkrtpl", {})
+    content = templatefile("./provisioners/hashistack/nomad/client.hcl.pkrtpl", {
+      zerotier_interface = var.hashistack_nomad_ztoverlay_interface
+    })
     destination = "/tmp/packer-files/hashistack/nomad/client.hcl"
   }
 
