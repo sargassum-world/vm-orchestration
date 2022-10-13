@@ -55,7 +55,3 @@ variable "hashistack_nomad_bootstrap_token" {
   sensitive = true
 }
 
-variable "hashistack_nomad_ztoverlay_interface" {
-  type = string
-  description = "Network interface for the ZeroTier overlay network to expose as a Nomad host network"
-}
