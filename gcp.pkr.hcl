@@ -64,6 +64,9 @@ build {
       "./provisioners/docker/install.sh",
       "./provisioners/docker/configure.sh",
     ]
+    env = {
+      DATA_MOUNT = var.system_mounts_data_mount
+    }
   }
 
   # Hashistack provisioning
