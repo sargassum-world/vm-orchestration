@@ -30,7 +30,7 @@ variable "gcp_subnetwork" {
 variable "system_mounts_data_device" {
   type = string
   description = "Device path of data disk for persisting Docker volumes"
-  default = "/dev/disk/by-id/googl-data"
+  default = "/dev/disk/by-id/google-data"
 }
 
 variable "system_mounts_data_mount" {
