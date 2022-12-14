@@ -11,6 +11,14 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [
+          {
+            variables: "sargassum-world.pkrvars.hcl",
+            credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          }
+        ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -25,7 +33,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
-          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          credentials_json: ${{ matrix.target.credentials }}
 
       - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
@@ -37,7 +45,7 @@ jobs:
         run: packer init .
 
       - name: Build Image
-        run: packer build -color=false -on-error=abort -var-file=sargassum-world.pkrvars.hcl .
+        run: packer build -color=false -on-error=abort -var-file=${{ matrix.target.variables }} .
         env:
           PACKER_LOG: 1
           PKR_VAR_hashistack_nomad_bootstrap_token: ${{ secrets.NOMAD_BOOTSTRAP_TOKEN }}
