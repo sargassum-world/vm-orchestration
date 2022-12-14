@@ -16,7 +16,7 @@ source "googlecompute" "ubuntu-minimal" {
 }
 
 build {
-  name = "sargassum-foundations-orchestrator"
+  name = "sargassum-foundations-${var.hashistack_nomad_role}"
 
   source "googlecompute.ubuntu-minimal" {
     project_id = var.gcp_project_id
@@ -25,9 +25,9 @@ build {
     subnetwork = var.gcp_subnetwork
     service_account_email = var.gcp_service_account
 
-    image_name = "sargassum-foundations-orchestrator-{{timestamp}}"
+    image_name = "sargassum-foundations-${var.hashistack_nomad_role}-{{timestamp}}"
     image_description = "Sargassum, Ubuntu, 22.04 LTS Minimal, amd64 jammy minimal image, supports Shielded VM features, with HashiStack"
-    image_family = "sargassum-foundations-orchestrator"
+    image_family = "sargassum-foundations-${var.hashistack_nomad_role}"
 
     disk_size = 10
   }
@@ -89,15 +89,20 @@ build {
   }
 
   provisioner "file" {
-    content = templatefile("./provisioners/hashistack/nomad/server.hcl.pkrtpl", {
+    content = templatefile("./provisioners/hashistack/nomad/orchestrator-server.hcl.pkrtpl", {
       expected_cluster_size = var.hashistack_expected_cluster_size
     })
-    destination = "/tmp/packer-files/hashistack/nomad/server.hcl"
+    destination = "/tmp/packer-files/hashistack/nomad/orchestrator-server.hcl"
   }
 
   provisioner "file" {
-    content = templatefile("./provisioners/hashistack/nomad/client.hcl.pkrtpl", {})
-    destination = "/tmp/packer-files/hashistack/nomad/client.hcl"
+    content = templatefile("./provisioners/hashistack/nomad/orchestrator-client.hcl.pkrtpl", {})
+    destination = "/tmp/packer-files/hashistack/nomad/orchestrator-client.hcl"
+  }
+
+  provisioner "file" {
+    content = templatefile("./provisioners/hashistack/nomad/worker-client.hcl.pkrtpl", {})
+    destination = "/tmp/packer-files/hashistack/nomad/worker-client.hcl"
   }
 
   provisioner "file" {
@@ -107,5 +112,8 @@ build {
 
   provisioner "shell" {
     script = "./provisioners/hashistack/nomad/configure.sh"
+    env = {
+      ROLE = var.hashistack_nomad_role
+    }
   }
 }

@@ -2,7 +2,3 @@ server {
   enabled = true
   bootstrap_expect = ${expected_cluster_size}
 }
-
-acl {
-  enabled = true
-}

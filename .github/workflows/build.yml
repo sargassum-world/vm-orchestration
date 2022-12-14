@@ -13,8 +13,12 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        environment: ["sargassum-world", "soe-sargassum-planktoscope"]
-    environment: ${{ matrix.environment }}
+        target:
+          - environment: "sargassum-world"
+            role: "orchestrator"
+          - environment: "soe-sargassum-planktoscope"
+            role: "worker"
+    environment: ${{ matrix.target.environment }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -41,7 +45,8 @@ jobs:
         run: packer init .
 
       - name: Build Image
-        run: packer build -color=false -on-error=abort -var-file=${{ matrix.environment }}.pkrvars.hcl .
+        run: packer build -color=false -on-error=abort -var-file=${{ matrix.target.environment }}.pkrvars.hcl .
         env:
           PACKER_LOG: 1
           PKR_VAR_hashistack_nomad_bootstrap_token: ${{ secrets.NOMAD_BOOTSTRAP_TOKEN }}
+          PKR_VAR_hashistack_nomad_role: ${{ matrix.target.role }}

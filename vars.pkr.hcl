@@ -57,3 +57,7 @@ variable "hashistack_nomad_bootstrap_token" {
   sensitive = true
 }
 
+variable "hashistack_nomad_role" {
+  type = string
+  description = "Orchestration role (either orchestrator or worker)"
+}
