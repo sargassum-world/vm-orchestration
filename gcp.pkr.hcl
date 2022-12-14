@@ -43,8 +43,8 @@ build {
 
   provisioner "file" {
     content = templatefile("./provisioners/system/mounts/fstab.pkrtpl", {
-      data_device = "/dev/disk/by-id/googl-data"
-      data_mount = "/mnt/disks/data"
+      data_device = var.system_mounts_data_device
+      data_mount = var.system_mounts_data_mount
     })
     destination = "/tmp/packer-files/system/mounts/fstab"
   }
@@ -52,7 +52,7 @@ build {
   provisioner "shell" {
     script = "./provisioners/system/mounts/configure.sh"
     env = {
-      DATA_MOUNT = "/mnt/disks/data"
+      DATA_MOUNT = var.system_mounts_data_mount
     }
   }
 
@@ -65,7 +65,7 @@ build {
       "./provisioners/docker/configure.sh",
     ]
     env = {
-      DATA_MOUNT = "/mnt/disks/data"
+      DATA_MOUNT = var.system_mounts_data_mount
     }
   }
 
