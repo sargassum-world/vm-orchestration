@@ -65,5 +65,5 @@ variable "hashistack_nomad_role" {
 variable "hashistack_nomad_join_server" {
   type = string
   description = "Address of Nomad server to auto-join"
-  default = "localhost"
+  default = "127.0.0.1"
 }

@@ -69,6 +69,15 @@ build {
     }
   }
 
+  # Zerotier provisioning
+
+  provisioner "shell" {
+    scripts = [
+      "./provisioners/zerotier/install.sh",
+      "./provisioners/zerotier/configure.sh",
+    ]
+  }
+
   # Hashistack provisioning
 
   provisioner "shell" {
