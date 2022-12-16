@@ -10,4 +10,4 @@ gcp_subnetwork = "foundations-us-west1"
 
 hashistack_nomad_datacenter = "sargassum-foundations"
 hashistack_expected_cluster_size = 1
-hashistack_nomad_join_server = "gcp-us-west1-a-1.d.foundations.infra.sargassum.world"
+hashistack_nomad_join_server = "nomad.d.foundations.infra.sargassum.world"
