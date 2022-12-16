@@ -2,9 +2,7 @@ client {
   enabled = true
   servers = ["127.0.0.1"]
 
-  server_join {
-    retry_join = ["provider=gce tag_key=${nomad_server_tag}"]
-  }
+  servers = ["${nomad_join_server}"]
 }
 
 plugin "docker" {
