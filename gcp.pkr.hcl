@@ -101,7 +101,9 @@ build {
   }
 
   provisioner "file" {
-    content = templatefile("./provisioners/hashistack/nomad/worker-client.hcl.pkrtpl", {})
+    content = templatefile("./provisioners/hashistack/nomad/worker-client.hcl.pkrtpl", {
+      nomad_server_tag = var.hashistack_nomad_server_tag
+    })
     destination = "/tmp/packer-files/hashistack/nomad/worker-client.hcl"
   }
 

@@ -61,3 +61,9 @@ variable "hashistack_nomad_role" {
   type = string
   description = "Orchestration role (either orchestrator or worker)"
 }
+
+variable "hashistack_nomad_server_tag" {
+  type = string
+  description = "Server tag for auto-joining a Nomad server"
+  default = "nomad-server"
+}
