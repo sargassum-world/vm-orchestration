@@ -98,6 +98,16 @@ build {
   }
 
   provisioner "file" {
+    content = file("./provisioners/hashistack/nomad/nomad-addresses-init.hcl")
+    destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses-init.hcl"
+  }
+
+  provisioner "file" {
+    content = file("./provisioners/hashistack/nomad/nomad-addresses.hcl")
+    destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses.hcl"
+  }
+
+  provisioner "file" {
     content = templatefile("./provisioners/hashistack/nomad/orchestrator-server.hcl.pkrtpl", {
       expected_cluster_size = var.hashistack_expected_cluster_size
     })

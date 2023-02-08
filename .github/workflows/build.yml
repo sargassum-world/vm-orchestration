@@ -41,6 +41,9 @@ jobs:
       - name: Test gcloud CLI
         run: gcloud info
 
+      - name: Install NumPy for IAP TCP performance
+        run: $(gcloud info --format="value(basic.python_location)") -m pip install numpy
+
       - name: Download Packer Plugins
         run: packer init .
         env:
