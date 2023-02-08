@@ -98,12 +98,12 @@ build {
   }
 
   provisioner "file" {
-    content = file("./provisioners/hashistack/nomad/nomad-addresses-init.hcl")
+    content = templatefile("./provisioners/hashistack/nomad/nomad-addresses-init.hcl.pkrtpl", {})
     destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses-init.hcl"
   }
 
   provisioner "file" {
-    content = file("./provisioners/hashistack/nomad/nomad-addresses.hcl")
+    content = templatefile("./provisioners/hashistack/nomad/nomad-addresses.hcl.pkrtpl", {})
     destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses.hcl"
   }
 
