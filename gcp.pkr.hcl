@@ -103,8 +103,8 @@ build {
     # interfering with Packer's use of Go templates.
     sources = [
       "./provisioners/hashistack/nomad/nomad-addresses.hcl",
-      "./provisioners/hashistack/nomad/client.hcl"
-      "./provisioners/hashistack/nomad/client-address.hcl"
+      "./provisioners/hashistack/nomad/client.hcl",
+      "./provisioners/hashistack/nomad/client-address.hcl",
     ]
     destination = "/tmp/packer-files/hashistack/nomad/"
   }
