@@ -1,11 +1,11 @@
 addresses {
   http = "::"
-  rpc = "\{\{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" \}\}"
-  serf = "\{\{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" \}\}"
+  rpc = "{${escape}{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" }${escape}}"
+  serf = "{${escape}{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" }${escape}}"
 }
 
 advertise {
-  http = "\{\{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" \}\}"
-  rpc = "\{\{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" \}\}"
-  serf = "\{\{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" \}\}"
+  http = "{${escape}{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" }${escape}}"
+  rpc = "{${escape}{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" }${escape}}"
+  serf = "{${escape}{ GetPrivateInterfaces | include \"name\" \"zt.*\" | sort \"-type,size,name,address\" | limit 1 | attr \"address\" }${escape}}"
 }

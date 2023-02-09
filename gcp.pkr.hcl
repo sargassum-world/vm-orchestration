@@ -103,7 +103,9 @@ build {
   }
 
   provisioner "file" {
-    content = templatefile("./provisioners/hashistack/nomad/nomad-addresses.hcl.pkrtpl", {})
+    content = templatefile("./provisioners/hashistack/nomad/nomad-addresses.hcl.pkrtpl", {
+      escape = ""
+    })
     destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses.hcl"
   }
 
