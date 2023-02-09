@@ -2,12 +2,11 @@
 
 # Copy configuration files
 sudo cp /tmp/packer-files/hashistack/nomad/nomad.hcl /etc/nomad.d/nomad.hcl
+sudo cp /tmp/packer-files/hashistack/nomad/client.hcl /etc/nomad.d/client.hcl
 if [[ "$ROLE" == "orchestrator" ]]; then
-  sudo cp /tmp/packer-files/hashistack/nomad/client.hcl /etc/nomad.d/client.hcl
-  sudo cp /tmp/packer-files/hashistack/nomad/orchestrator-client.hcl /etc/nomad.d/client-orchestrator.hcl
   sudo cp /tmp/packer-files/hashistack/nomad/orchestrator-server.hcl /etc/nomad.d/server.hcl
+  sudo cp /tmp/packer-files/hashistack/nomad/orchestrator-client.hcl /etc/nomad.d/client-orchestrator.hcl
 elif [[ "$ROLE" == "worker" ]]; then
-  sudo cp /tmp/packer-files/hashistack/nomad/client.hcl /etc/nomad.d/client.hcl
   sudo cp /tmp/packer-files/hashistack/nomad/worker-client.hcl /etc/nomad.d/client-worker.hcl
 fi
 sudo chmod 644 /etc/nomad.d/*.hcl
@@ -27,3 +26,4 @@ fi
 
 # Copy post-configuration files
 sudo cp /tmp/packer-files/hashistack/nomad/nomad-addresses.hcl /etc/nomad.d/nomad-addresses.hcl
+sudo cp /tmp/packer-files/hashistack/nomad/client-address.hcl /etc/nomad.d/client-address.hcl
