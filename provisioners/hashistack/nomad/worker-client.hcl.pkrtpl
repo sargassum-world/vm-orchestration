@@ -1,3 +1,7 @@
 client {
   servers = ["${nomad_join_server}"]
+
+  meta {
+    nomad_role = "worker"
+  }
 }

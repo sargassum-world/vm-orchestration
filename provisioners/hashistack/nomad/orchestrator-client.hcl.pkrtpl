@@ -1,3 +1,7 @@
 client {
   servers = ["127.0.0.1"]
+
+  meta {
+    nomad_role = "orchestrator"
+  }
 }
