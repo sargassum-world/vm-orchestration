@@ -2,7 +2,6 @@
 
 # Copy configuration files
 sudo cp /tmp/packer-files/hashistack/nomad/nomad.hcl /etc/nomad.d/nomad.hcl
-sudo cp /tmp/packer-files/hashistack/nomad/nomad-addresses-init.hcl /etc/nomad.d/nomad-addresses.hcl
 if [[ "$ROLE" == "orchestrator" ]]; then
   sudo cp /tmp/packer-files/hashistack/nomad/orchestrator-client.hcl /etc/nomad.d/client.hcl
   sudo cp /tmp/packer-files/hashistack/nomad/orchestrator-server.hcl /etc/nomad.d/server.hcl

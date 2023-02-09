@@ -1,6 +1,8 @@
 datacenter = "${datacenter}"
 data_dir = "/opt/nomad/data"
 
+bind_addr = "::"
+
 acl {
   enabled = true
 }
