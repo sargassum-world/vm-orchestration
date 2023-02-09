@@ -98,11 +98,14 @@ build {
   }
 
   provisioner "file" {
-    # Note: if we load this file as a content parameter, Packer will complain about the double
-    # curly braces in the file. This is the only way to literally copy the file without interfering
-    # with Packer's use of Go templates.
-    source = "./provisioners/hashistack/nomad/nomad-addresses.hcl"
-    destination = "/tmp/packer-files/hashistack/nomad/nomad-addresses.hcl"
+    # Note: if we load these file as content parameters, Packer will complain about the double
+    # curly braces in the files. This is the only way to literally copy the files without
+    # interfering with Packer's use of Go templates.
+    sources = [
+      "./provisioners/hashistack/nomad/nomad-addresses.hcl",
+      "./provisioners/hashistack/nomad/client.hcl"
+    ]
+    destination = "/tmp/packer-files/hashistack/nomad/"
   }
 
   provisioner "file" {
