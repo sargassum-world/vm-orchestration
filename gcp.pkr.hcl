@@ -42,6 +42,10 @@ build {
     ]
   }
 
+  provisioner "shell" {
+    script = "./provisioners/system/sysctl/preconfigure.sh"
+  }
+
   provisioner "file" {
     sources = [
       "./provisioners/system/sysctl/99-quic-udp.conf",
