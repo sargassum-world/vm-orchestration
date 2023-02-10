@@ -37,6 +37,7 @@ build {
   provisioner "shell" {
     scripts = [
       "./provisioners/system/upgrade.sh",
+      "./provisioners/system/install.sh",
       "./provisioners/system/mounts/preconfigure.sh",
     ]
   }
