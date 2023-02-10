@@ -43,6 +43,17 @@ build {
   }
 
   provisioner "file" {
+    sources = [
+      "./provisioners/system/sysctl/99-quic-udp.conf",
+    ]
+    destination = "/tmp/packer-files/system/sysctl/"
+  }
+
+  provisioner "shell" {
+    script = "./provisioners/system/sysctl/configure.sh"
+  }
+
+  provisioner "file" {
     content = templatefile("./provisioners/system/mounts/fstab.pkrtpl", {
       data_device = var.system_mounts_data_device
       data_mount = var.system_mounts_data_mount
